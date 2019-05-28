@@ -3,18 +3,21 @@ package main
 import (
 	"fmt"
 	"time"
+	//"reflect"
 )
 
 func main() {
-	var t time.Time // 定义 time.Time 类型变量
-	t = time.Now()  // 获取当前时间
+	//fmt.Println(reflect.TypeOf(time.Monday))
+	//var t time.Time // 定义 time.Time 类型变量
+	//t = time.Now()  // 获取当前时间
 	//fmt.Printf("时间: %v, 时区:  %v,  时间类型: %T\n", t, t.Location(), t)
 	//
 	//// time.UTC() time 返回UTC 时区的时间
-	fmt.Printf("时间: %v, 时区:  %v,  时间类型: %T\n", t.UTC(), t.UTC().Location(), t)
+	//fmt.Printf("时间: %v, 时区:  %v,  时间类型: %T\n", t.UTC(), t.UTC().Location(), t)
 	//
 	//now := time.Now()
-	//m, _ := time.ParseDuration("-1m")
+	//m, _ := time.ParseDuration("1h3m")
+	//fmt.Println(m.Seconds())
 	//m1 := now.Add(m)
 	//fmt.Println(m1)
 	//
@@ -43,5 +46,15 @@ func main() {
 	//fmt.Println(a.Unix())
 	//fmt.Println(b.Unix())
 	//fmt.Println(time.Unix(1425985200,0))
+
+
+	ticker  :=  time.NewTicker(5*time.Second)
+
+	for t := range ticker.C{
+		fmt.Println(t.Format("2006-01-02 15:04:05"))
+	}
+
+	ticker.Stop()
+
 
 }
