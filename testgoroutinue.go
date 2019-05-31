@@ -17,6 +17,32 @@ func broadcast(channel chan int){
 	close(channel)//关闭通道
 }
 
+//超时设置
+func timeout()  {
+	c := make(chan int)
+	o := make(chan bool)
+	go func() {
+		for {
+			select {
+			case v := <- c:
+				println(v)
+			case <- time.After(5 * time.Second):
+				println("timeout")
+				o <- true
+				break
+			}
+		}
+	}()
+
+	go func() {
+		for i:=0;i<10000000;i++{
+			c <- i
+		}
+	}()
+	<- o
+
+}
+
 func main()  {
 
 	 //fmt.Println("测试数据")
@@ -42,13 +68,13 @@ func main()  {
 
 
 
-		channel := make(chan int,1)
-
-		for i:=0;i<10 ;i++  {
-			go notify(i,channel)
-		}
-		go broadcast(channel)
-		time.Sleep(time.Second)
+		//channel := make(chan int,1)
+		//
+		//for i:=0;i<10 ;i++  {
+		//	go notify(i,channel)
+		//}
+		//go broadcast(channel)
+		//time.Sleep(time.Second)
 
 	//ch := make(chan int)
 	//go func() {
@@ -61,6 +87,9 @@ func main()  {
 	//}()
 	////从通道接收数据
 	//fmt.Println(<-ch)
+
+
+
 
 
 }
